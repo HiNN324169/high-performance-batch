@@ -34,7 +34,7 @@ class InterfaceHighPerformanceApplicationTests {
                     countDownLatch.countDown();
                     countDownLatch.await();
                     Order order = orderService.queryById(5);
-                    System.out.println(order.toString());
+//                    System.out.println(order.toString());
 
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();

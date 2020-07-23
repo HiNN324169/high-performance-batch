@@ -51,4 +51,48 @@
 
 
 ## 知识点2
-### java 模拟 多用户并发请求
+### 注解的使用：@PostConstruct
+特点：
+
+1、只有一个非静态方法能使用此注解
+
+2、被注解的方法不得有任何参数
+
+3、被注解的方法返回值必须为void
+
+4、被注解方法不得抛出已检查异常
+
+5、此方法只会被执行一次
+
+被 @PostConstruct 注解修饰过的方法 会在 系统系统的时候自动执行。
+
+## 知识点3 定时任务
+```
+ // 创建定时任务线程池
+ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+
+/**
+ *  参数一：需要执行的任务
+ *  参数二：执行run 方法 时 延时 0 毫秒
+ *  参数三：间隔 10 毫秒 执行 任务
+ *  参数四：时间单位
+ */
+executorService.scheduleAtFixedRate()
+```
+
+
+## 知识点4 队列
+
+```text
+// 有界队列，默认：Integer.Max_size
+LinkedBlockingQueue<Request> queue = new LinkedBlockingQueue<>();
+
+// 指定 队列大小
+LinkedBlockingQueue<Request> queue = new LinkedBlockingQueue<>(100);
+
+加入队列
+add(); // 当 队列 容量不够时，会抛出 java.lang.IllegalStateException: Queue full 异常
+
+queue.put() // 当 队列 容量不够时，调用该方法 会阻塞，直到 队列容量可用
+
+```

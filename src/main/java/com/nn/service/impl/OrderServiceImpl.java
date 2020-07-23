@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
 
-    private LinkedBlockingQueue<Request> queue = new LinkedBlockingQueue<>();
+    private LinkedBlockingQueue<Request> queue = new LinkedBlockingQueue<>(100);
 
     /**
      * 根据 id 查询订单
@@ -45,7 +45,8 @@ public class OrderServiceImpl implements OrderService {
         request.setId(id);
         request.setSerialNo(serialNo);
 
-        queue.add(request);
+//        queue.add(request);
+        queue.put(request);
 
         // 不断监听 自己的线程有没有返回结果，阻塞式
         return future.get();
@@ -72,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
             public void run() {
                 int size = queue.size();
                 if (size == 0){
-                    System.out.println("没事干哟。。。。。。");
+//                    System.out.println("没事干哟。。。。。。");
                     return;
                 }
 
